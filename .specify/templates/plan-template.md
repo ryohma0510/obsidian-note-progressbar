@@ -3,7 +3,7 @@
 **Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
 **Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
-**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
+**Note**: This template is filled in by the `/speckit.plan` command. See the project command documentation for the execution workflow.
 
 ## Summary
 
@@ -31,7 +31,9 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- **Code Quality Gate**: Document module boundaries, file ownership, and how `main.ts` stays limited to lifecycle glue; plans lacking this detail cannot proceed.
+- **Testing Gate**: Each user story must specify the automated tests (unit, contract, scenario) that will be added or updated, plus how they run via `npm test`.
+- **UX Consistency Gate**: Capture command names, settings copy, default states, and migration needs so reviewers can confirm user experience changes before implementation.
 
 ## Project Structure
 

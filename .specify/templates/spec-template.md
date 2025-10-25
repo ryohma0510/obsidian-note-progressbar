@@ -20,6 +20,8 @@
   - Demonstrated to users independently
 -->
 
+> Constitution alignment: For every story capture the intended module touchpoints (Code Quality), the automated tests that will be written (Tests Define Done), and the user-facing copy/states (User Experience Consistency).
+
 ### User Story 1 - [Brief Title] (Priority: P1)
 
 [Describe this user journey in plain language]
@@ -74,6 +76,12 @@
 
 - What happens when [boundary condition]?
 - How does system handle [error scenario]?
+
+## Quality, Testing & UX Alignment *(constitution-mandated)*
+
+- **Code Quality Plan**: Identify which modules/files change, how responsibilities stay single-purpose, and any new utilities to create under `src/`.
+- **Automated Testing Plan**: List the unit, contract, and scenario tests per story plus how they run via `npm test` or equivalent CI command.
+- **UX Consistency Plan**: Provide the approved command names, settings labels, default values, and migration or documentation updates required.
 
 ## Requirements *(mandatory)*
 
