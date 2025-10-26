@@ -42,7 +42,6 @@ export class ProgressBanner {
 		this.progressEl.value = snapshot.percentage;
 		this.progressEl.title = `${snapshot.percentage}%`;
 		this.root.setAttr("aria-label", this.summaryText.textContent ?? "");
-		this.root.classList.toggle("todo-progress-banner--celebratory", snapshot.percentage === 100);
 	}
 
 	hide(): void {
