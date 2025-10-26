@@ -11,8 +11,8 @@ export class ProgressBanner {
 	private readonly summaryText: HTMLSpanElement;
 	/** Span element rendering the percentage text (e.g., "60%"). */
 	private readonly percentageText: HTMLSpanElement;
-	/** Fill element whose width animates to represent completion. */
-	private readonly trackFill: HTMLDivElement;
+	/** Native progress element that visualizes completion. */
+	private readonly progressEl: HTMLProgressElement;
 
 	/**
 	 * @param app - Obsidian application instance for locating the active Markdown view.
@@ -25,7 +25,9 @@ export class ProgressBanner {
 		this.percentageText = summary.querySelector(
 			".todo-progress-banner__summary-percentage",
 		) as HTMLSpanElement;
-		this.trackFill = this.root.querySelector(".todo-progress-banner__fill") as HTMLDivElement;
+		this.progressEl = this.root.querySelector(
+			".todo-progress-banner__progress",
+		) as HTMLProgressElement;
 	}
 
 	/**
@@ -37,7 +39,8 @@ export class ProgressBanner {
 
 		this.summaryText.setText(`${snapshot.completed} of ${snapshot.total} tasks complete`);
 		this.percentageText.setText(`${snapshot.percentage}%`);
-		this.trackFill.style.width = `${snapshot.percentage}%`;
+		this.progressEl.value = snapshot.percentage;
+		this.progressEl.title = `${snapshot.percentage}%`;
 		this.root.setAttr("aria-label", this.summaryText.textContent ?? "");
 		this.root.classList.toggle("todo-progress-banner--celebratory", snapshot.percentage === 100);
 	}
@@ -84,9 +87,7 @@ export class ProgressBanner {
 	 *     <span class="todo-progress-banner__summary-text">2 of 5 tasks complete</span>
 	 *     <span class="todo-progress-banner__summary-percentage">40%</span>
 	 *   </div>
-	 *   <div class="todo-progress-banner__track">
-	 *     <div class="todo-progress-banner__fill" style="width: 40%"></div>
-	 *   </div>
+	 *   <progress class="todo-progress-banner__progress" value="40" max="100"></progress>
 	 * </div>
 	 * ```
 	 */
@@ -104,8 +105,11 @@ export class ProgressBanner {
 			.createSpan({ cls: "todo-progress-banner__summary-percentage" })
 			.setText("0%");
 
-		const track = root.createDiv({ cls: "todo-progress-banner__track" });
-		track.createDiv({ cls: "todo-progress-banner__fill" });
+		const progress = root.createEl("progress", {
+			cls: "todo-progress-banner__progress",
+		}) as HTMLProgressElement;
+		progress.max = 100;
+		progress.value = 0;
 
 		return root;
 	}
