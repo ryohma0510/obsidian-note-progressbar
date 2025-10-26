@@ -40,9 +40,9 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Shared types, state scaffolding, and styling hooks required before implementing any user story logic.
 
-- [ ] T004 Define shared interfaces `NoteTask`, `ProgressSnapshot`, and `BannerState` in `src/types/progress.ts` according to `data-model.md`.
-- [ ] T005 Scaffold `src/state/note-watcher.ts` with a `NoteWatcher` class that accepts the Obsidian `App`, exposes `start()`/`stop()`, and emits snapshot callbacks (implementation TBD in user stories).
-- [ ] T006 Add a `.todo-progress-banner` style block to `styles.css` (or create it if missing) that inherits typography/colors from Obsidian CSS variables while reserving space for the banner.
+- [X] T004 Define shared interfaces `NoteTask`, `ProgressSnapshot`, and `BannerState` in `src/types/progress.ts` according to `data-model.md`.
+- [X] T005 Scaffold `src/state/note-watcher.ts` with a `NoteWatcher` class that accepts the Obsidian `App`, exposes `start()`/`stop()`, and emits snapshot callbacks (implementation TBD in user stories).
+- [X] T006 Add a `.todo-progress-banner` style block to `styles.css` (or create it if missing) that inherits typography/colors from Obsidian CSS variables while reserving space for the banner.
 
 **Checkpoint**: Shared types, watcher skeleton, and styling exist—user stories can now plug in behavior independently.
 
