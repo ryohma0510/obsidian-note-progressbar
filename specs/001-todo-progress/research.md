@@ -9,7 +9,7 @@
 ## Findings
 
 ### Decision: Adopt Vitest + jsdom for automated tests
-- **Rationale**: Vitest works naturally with TypeScript, mirrors Vite tooling (compatible with esbuild output), and bundles jsdom support for DOM-level assertions. It runs via `npm test`, satisfying the constitution gate, and can execute purely in Node without launching Obsidian, keeping CI fast.
+- **Rationale**: Vitest works naturally with TypeScript, mirrors Vite tooling (compatible with esbuild output), and bundles jsdom support for DOM-level assertions. It runs via `pnpm test`, satisfying the constitution gate, and can execute purely in Node without launching Obsidian, keeping CI fast.
 - **Alternatives considered**:
   - Jest: heavier config, slower startup, and redundant with Vitest’s TS support.
   - Playwright end-to-end: unnecessary for MVP since behavior can be simulated through mocked workspace events.
@@ -37,4 +37,3 @@
 - **Alternatives considered**:
   - Injecting custom stylesheets: increases maintenance burden and can conflict with user themes.
   - Hard-coded colors: break dark/light support and accessibility.
-

@@ -30,9 +30,9 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Configure tooling and directory scaffolding required for all user stories.
 
-- [ ] T001 Update `package.json` devDependencies with `vitest`, `jsdom`, and `@types/jsdom`, and add an `npm test` script that runs `vitest run`.
+- [ ] T001 Update `package.json` devDependencies with `vitest`, `jsdom`, and `@types/jsdom`, and add a `test` script (run via `pnpm test`) that executes `vitest run`.
 - [ ] T002 Create `vitest.config.ts` at repo root configured for the `jsdom` environment and include `tests/**/*.(test|spec).ts` globs.
-- [ ] T003 Create `tests/unit/` and `tests/scenario/` folders (add `.gitkeep` if needed) plus a short testing guide in `tests/README.md` describing how to run `npm test` locally.
+- [ ] T003 Create `tests/unit/` and `tests/scenario/` folders (add `.gitkeep` if needed) plus a short testing guide in `tests/README.md` describing how to run `pnpm test` locally.
 
 ---
 
@@ -129,4 +129,3 @@ description: "Task list template for feature implementation"
 1. After MVP validation, proceed to US2 to add live updates.
 2. Use scenario tests (T013) to guard regressions before merging.
 3. Finish with Polish tasks (T018–T020) prior to public release.
-

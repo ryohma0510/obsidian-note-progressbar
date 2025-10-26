@@ -50,7 +50,7 @@ Writers updating checklists need the bar to stay accurate as they tick items off
 ## Quality, Testing & UX Alignment *(constitution-mandated)*
 
 - **Code Quality Plan**: Introduce `src/progress/calculator.ts` for parsing Markdown tokens and returning a `ProgressSnapshot`, plus `src/ui/progress-banner.ts` for rendering the top-of-note element. `main.ts` simply wires lifecycle hooks to these modules and registers any future commands.
-- **Automated Testing Plan**: Add logic tests for `ProgressSnapshot` generation covering nested lists, zero-task notes, and large documents; add scenario tests that simulate toggling checkboxes and note navigation to assert the bar updates. All tests run via `npm test` so CI gates merges per the constitution.
+- **Automated Testing Plan**: Add logic tests for `ProgressSnapshot` generation covering nested lists, zero-task notes, and large documents; add scenario tests that simulate toggling checkboxes and note navigation to assert the bar updates. All tests run via `pnpm test` so CI gates merges per the constitution.
 - **UX Consistency Plan**: UI strings use sentence case (e.g., “Todo progress”), default styling respects the active Obsidian theme, and the bar appears directly beneath the note title with subtle animation matching Obsidian guidelines. README gains a short section describing activation and interpreting the progress banner.
 
 ## Requirements *(mandatory)*

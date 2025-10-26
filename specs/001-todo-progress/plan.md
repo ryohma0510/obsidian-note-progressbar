@@ -18,7 +18,7 @@ Deliver an Obsidian plugin feature that renders a lightweight progress banner ab
 **Language/Version**: TypeScript 4.7 targeting ES6 (per existing tsconfig)  
 **Primary Dependencies**: Obsidian plugin API (`obsidian`), esbuild bundler, tslib  
 **Storage**: N/A (MVP has no persisted settings)  
-**Testing**: Vitest + jsdom via `npm test` for unit and scenario coverage  
+**Testing**: Vitest + jsdom via `pnpm test` for unit and scenario coverage  
 **Target Platform**: Obsidian desktop (Electron) and mobile (iOS/Android) apps  
 **Project Type**: Single plugin project (`main.ts` + `src/**`)  
 **Performance Goals**: Parse and render within 500 ms on note load; reflect checkbox toggles within 200 ms  
@@ -30,7 +30,7 @@ Deliver an Obsidian plugin feature that renders a lightweight progress banner ab
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
 - **Code Quality Gate**: `main.ts` will only register commands/events and delegate to new modules: `src/progress/calculator.ts` (Markdown checkbox parser returning `ProgressSnapshot`), `src/ui/progress-banner.ts` (DOM creation + updates), and `src/state/note-watcher.ts` (workspace/file events). Each module owns a single responsibility with TSDoc summaries.
-- **Testing Gate**: Plan introduces `npm test` powered by a TypeScript-friendly runner (decision pending research) plus jsdom for DOM assertions. Coverage targets: calculator unit tests (nested lists, empty notes, performance caps) and scenario tests simulating checkbox toggles via mocked workspace events.
+- **Testing Gate**: Plan introduces `pnpm test` powered by a TypeScript-friendly runner (decision pending research) plus jsdom for DOM assertions. Coverage targets: calculator unit tests (nested lists, empty notes, performance caps) and scenario tests simulating checkbox toggles via mocked workspace events.
 - **UX Consistency Gate**: Only one UI surface—the “Todo progress” banner fixed below the note title—plus a command palette entry “Toggle todo progress bar.” Copy will be sentence case, default theme colors auto-inherited, and celebratory state text “All tasks done” keeps layout stable. No settings panel in MVP, so no additional copy required.
 
 ## Project Structure
@@ -84,5 +84,5 @@ tests/
 
 ## Constitution Re-check (post-design)
 - **Code Quality Gate**: PASS – Modules, data model, and event bridge are fully documented; `main.ts` remains a lightweight orchestrator.
-- **Testing Gate**: PASS – Vitest + jsdom stack chosen, contracts + data model specify what to assert, and `npm test` will run both unit and scenario suites.
+- **Testing Gate**: PASS – Vitest + jsdom stack chosen, contracts + data model specify what to assert, and `pnpm test` will run both unit and scenario suites.
 - **UX Consistency Gate**: PASS – Single banner surface with fixed copy (“Todo progress”, “All tasks done”), celebratory state defined in spec, and no extra settings that could drift from guidelines.
