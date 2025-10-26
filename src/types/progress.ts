@@ -30,22 +30,6 @@ export interface ProgressSnapshot {
 }
 
 /**
- * UI-friendly representation of the banner state derived from a snapshot
- * and user-toggle preference.
- *
- * @property visible - Whether the banner should currently render in the DOM.
- * @property text - Human-readable summary shown in the banner.
- * @property fillRatio - Decimal (0–1) used to size the progress fill.
- * @property celebratory - Flag indicating all tasks are complete (100%).
- */
-export interface BannerState {
-	visible: boolean;
-	text: string;
-	fillRatio: number;
-	celebratory: boolean;
-}
-
-/**
  * Callback signature used by the state layer to notify observers (e.g., UI) of
  * a new snapshot or `null` when the banner should hide.
  *
