@@ -56,15 +56,15 @@ description: "Task list template for feature implementation"
 
 ### Tests for User Story 1 ⚠️ (mandatory)
 
-- [ ] T007 [P] [US1] Implement calculator unit tests in `tests/unit/progress-calculator.test.ts` covering mixed checked/unchecked boxes, nested lists, and zero-task notes.
+- [X] T007 [P] [US1] Implement calculator unit tests in `tests/unit/progress-calculator.test.ts` covering mixed checked/unchecked boxes, nested lists, and zero-task notes.
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Implement checkbox parsing in `src/progress/calculator.ts` to convert metadata cache list items into `ProgressSnapshot` objects (hide banner when `total = 0`).
-- [ ] T009 [US1] Build the DOM renderer in `src/ui/progress-banner.ts` that inserts the banner beneath the note title, sets text to the rounded percentage, and exposes `show(snapshot)` / `hide()` methods.
-- [ ] T010 [US1] Extend `src/state/note-watcher.ts` to recalculate on `workspace.on('active-leaf-change')` and deliver snapshots to the banner renderer.
-- [ ] T011 [US1] Update `main.ts` to instantiate the calculator, banner, and watcher, register the “Toggle todo progress bar” command, and dispose everything in `onunload`.
-- [ ] T012 [US1] Document activation instructions and the banner UX in `README.md` (usage section) so users know what to expect for MVP.
+- [X] T008 [US1] Implement checkbox parsing in `src/progress/calculator.ts` to convert metadata cache list items into `ProgressSnapshot` objects (hide banner when `total = 0`).
+- [X] T009 [US1] Build the DOM renderer in `src/ui/progress-banner.ts` that inserts the banner beneath the note title, sets text to the rounded percentage, and exposes `show(snapshot)` / `hide()` methods.
+- [X] T010 [US1] Extend `src/state/note-watcher.ts` to recalculate on `workspace.on('active-leaf-change')` and deliver snapshots to the banner renderer.
+- [X] T011 [US1] Update `main.ts` to instantiate the calculator, banner, and watcher, register the “Toggle todo progress bar” command, and dispose everything in `onunload`.
+- [X] T012 [US1] Document activation instructions and the banner UX in `README.md` (usage section) so users know what to expect for MVP.
 
 **Checkpoint**: User Story 1 delivers an independently testable banner that appears on note open and hides when no tasks exist.
 
