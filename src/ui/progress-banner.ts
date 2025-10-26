@@ -69,6 +69,7 @@ export class ProgressBanner {
 
 		if (!container) return null;
 
+		// check already inserted
 		if (this.root.parentElement !== container) {
 			container.insertAdjacentElement('afterend', this.root);
 		}
