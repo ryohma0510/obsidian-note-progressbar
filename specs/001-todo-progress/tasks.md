@@ -30,9 +30,9 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Configure tooling and directory scaffolding required for all user stories.
 
-- [ ] T001 Update `package.json` devDependencies with `vitest`, `jsdom`, and `@types/jsdom`, and add a `test` script (run via `pnpm test`) that executes `vitest run`.
-- [ ] T002 Create `vitest.config.ts` at repo root configured for the `jsdom` environment and include `tests/**/*.(test|spec).ts` globs.
-- [ ] T003 Create `tests/unit/` and `tests/scenario/` folders (add `.gitkeep` if needed) plus a short testing guide in `tests/README.md` describing how to run `pnpm test` locally.
+- [X] T001 Update `package.json` devDependencies with `vitest`, `jsdom`, and `@types/jsdom`, and add a `test` script (run via `pnpm test`) that executes `vitest run`.
+- [X] T002 Create `vitest.config.ts` at repo root configured for the `jsdom` environment and include `tests/**/*.(test|spec).ts` globs.
+- [X] T003 Create `tests/unit/` and `tests/scenario/` folders (add `.gitkeep` if needed) plus a short testing guide in `tests/README.md` describing how to run `pnpm test` locally.
 
 ---
 
