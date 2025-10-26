@@ -1,0 +1,93 @@
+openapi: 3.0.0
+info:
+  title: Todo Progress Plugin Commands
+  version: 0.1.0
+  description: >-
+    Contract describing the user-visible command palette action and the derived
+    progress snapshot interface used by the UI banner. Although implemented
+    locally within Obsidian, modeling the behavior as OpenAPI endpoints keeps
+    acceptance tests and documentation precise.
+servers:
+  - url: obsidian://plugin/todo-progress
+
+paths:
+  /commands/todo-progress/toggle:
+    post:
+      summary: Toggle the todo progress banner for the active note.
+      operationId: toggleTodoProgressBanner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  description: Desired visibility state; omitted toggles.
+              required: []
+      responses:
+        '200':
+          description: Banner state after toggle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BannerState'
+
+  /notes/{path}/progress:
+    get:
+      summary: Return the derived progress snapshot for a note.
+      description: >-
+        Used by automated scenario tests to assert calculator accuracy without
+        rendering the UI.
+      operationId: getNoteProgress
+      parameters:
+        - in: path
+          name: path
+          required: true
+          schema:
+            type: string
+          description: Vault-relative path to the Markdown note.
+      responses:
+        '200':
+          description: Progress snapshot (hidden if no checkboxes)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgressSnapshot'
+        '204':
+          description: No tasks detected in the requested note
+
+components:
+  schemas:
+    ProgressSnapshot:
+      type: object
+      properties:
+        total:
+          type: integer
+          minimum: 0
+        completed:
+          type: integer
+          minimum: 0
+        percentage:
+          type: integer
+          minimum: 0
+          maximum: 100
+        generatedAt:
+          type: integer
+          description: Epoch milliseconds when snapshot was produced.
+      required: [total, completed, percentage, generatedAt]
+    BannerState:
+      type: object
+      properties:
+        visible:
+          type: boolean
+        text:
+          type: string
+        fillRatio:
+          type: number
+          minimum: 0
+          maximum: 1
+        celebratory:
+          type: boolean
+      required: [visible, text, fillRatio, celebratory]

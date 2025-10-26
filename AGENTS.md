@@ -249,3 +249,10 @@ this.registerInterval(window.setInterval(() => { /* ... */ }, 1000));
 - Developer policies: https://docs.obsidian.md/Developer+policies
 - Plugin guidelines: https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines
 - Style guide: https://help.obsidian.md/style-guide
+
+## Active Technologies
+- TypeScript 4.7 targeting ES6 (per existing tsconfig) + Obsidian plugin API (`obsidian`), esbuild bundler, tslib (001-todo-progress)
+- N/A (MVP has no persisted settings) (001-todo-progress)
+
+## Recent Changes
+- 001-todo-progress: Added TypeScript 4.7 targeting ES6 (per existing tsconfig) + Obsidian plugin API (`obsidian`), esbuild bundler, tslib
