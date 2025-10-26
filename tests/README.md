@@ -5,9 +5,9 @@
 - `pnpm test` – executes all unit and scenario tests once via Vitest + jsdom.
 - `pnpm test -- --watch` – re-runs the suite on file changes during development.
 
-## Directory layout
+## Layout
 
-- `tests/unit/` – logic-level tests (e.g., progress calculator, data transforms).
-- `tests/scenario/` – behavior scenarios simulating workspace or UI flows.
+- Source-level and unit specs live beside their implementation files (for example, `src/progress/calculator.test.ts` sits next to `calculator.ts`). Keeping them co-located makes it easier to evolve modules and tests together.
+- Scenario or higher-level behavioral specs continue to live under `tests/scenario/`, since they typically span multiple modules or mock workspace state.
 
-Add new specs under the appropriate folder using the `*.test.ts` or `*.spec.ts` suffix so Vitest picks them up via `vitest.config.ts`.
+Name tests with the `*.test.ts` or `*.spec.ts` suffix so Vitest loads them automatically (see `vitest.config.ts` for the globs that are watched).

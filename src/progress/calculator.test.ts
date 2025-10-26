@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import type { NoteTask } from "../../src/types/progress";
-import { calculateProgressSnapshot } from "../../src/progress/calculator";
+import type { NoteTask } from "../types/progress";
+import { calculateProgressSnapshot } from "./calculator";
 
 const task = (id: string, checked: boolean, line = 0): NoteTask => ({
 	id,
