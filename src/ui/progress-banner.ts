@@ -63,12 +63,12 @@ export class ProgressBanner {
 		}
 
 		const container =
-			(view.containerEl.querySelector(".view-content") as HTMLElement | null) ?? view.contentEl;
+			(view.containerEl.querySelector(".inline-title") as HTMLElement | null) ?? view.contentEl;
 
 		if (!container) return null;
 
 		if (this.root.parentElement !== container) {
-			container.prepend(this.root);
+			container.insertAdjacentElement('afterend', this.root);
 		}
 
 		return container;
