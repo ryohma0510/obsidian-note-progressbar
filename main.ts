@@ -8,12 +8,6 @@ export default class TodoProgressPlugin extends Plugin {
 		this.controller = new ProgressController(this.app);
 		this.controller.start();
 
-		this.addCommand({
-			id: "toggle-todo-progress-banner",
-			name: "Toggle todo progress bar",
-			callback: () => this.controller?.toggleBanner(),
-		});
-
 		this.app.workspace.onLayoutReady(() => {
 			this.controller?.refresh();
 		});
