@@ -74,18 +74,14 @@ export class NoteWatcher {
 		this.registerEvent(
 			this.app.metadataCache,
 			this.app.metadataCache.on("changed", (file) => {
-				if (this.isActiveFile(file)) {
-					this.recalculate(file);
-				}
+				this.handleMetadataUpdate(file);
 			}),
 		);
 
 		this.registerEvent(
 			this.app.metadataCache,
 			this.app.metadataCache.on("resolve", (file) => {
-				if (this.isActiveFile(file)) {
-					this.recalculate(file);
-				}
+				this.handleMetadataUpdate(file);
 			}),
 		);
 	}
@@ -130,6 +126,12 @@ export class NoteWatcher {
 		const cache = this.app.metadataCache.getFileCache(file) ?? null;
 		const snapshot = snapshotFromCache(file, cache);
 		this.emit(snapshot);
+	}
+
+	private handleMetadataUpdate(file: TFile): void {
+		if (this.isActiveFile(file)) {
+			this.recalculate(file);
+		}
 	}
 
 	private getActiveMarkdownFile(): TFile | null {
