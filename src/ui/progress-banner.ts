@@ -34,8 +34,7 @@ export class ProgressBanner {
 	 * @param snapshot - Latest progress data to render inside the banner.
 	 */
 	show(snapshot: ProgressSnapshot): void {
-		const container = this.ensureMounted();
-		if (!container) return;
+		if (!this.ensureMounted()) return;
 
 		this.summaryText.setText(`${snapshot.completed} of ${snapshot.total} tasks complete`);
 		this.percentageText.setText(`${snapshot.percentage}%`);
@@ -55,26 +54,26 @@ export class ProgressBanner {
 	}
 
 	/**
-	 * @returns The container element that now hosts the banner, or `null` if no Markdown view is active.
+	 * @returns `true` if the banner is mounted under the active view; `false` otherwise.
 	 */
-	private ensureMounted(): HTMLElement | null {
+	private ensureMounted(): boolean {
 		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
 		if (!view) {
 			this.hide();
-			return null;
+			return false;
 		}
 
 		const container =
 			(view.containerEl.querySelector(".inline-title") as HTMLElement | null) ?? view.contentEl;
 
-		if (!container) return null;
+		if (!container) return false;
 
 		// check already inserted
 		if (this.root.parentElement !== container) {
-			container.insertAdjacentElement('afterend', this.root);
+			container.insertAdjacentElement("afterend", this.root);
 		}
 
-		return container;
+		return true;
 	}
 
 	/**
