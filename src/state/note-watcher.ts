@@ -1,5 +1,5 @@
 import { MarkdownView } from "obsidian";
-import type { App, EventRef, TFile } from "obsidian";
+import type { App, EventRef, Events, TFile } from "obsidian";
 import { snapshotFromCache } from "../progress/calculator";
 import type { ProgressSnapshot, SnapshotCallback } from "../types/progress";
 
@@ -19,8 +19,8 @@ import type { ProgressSnapshot, SnapshotCallback } from "../types/progress";
 export class NoteWatcher {
 	private readonly app: App;
 	private readonly onSnapshot: SnapshotCallback;
-	/** Active event refs so we can unregister everything on stop(). */
-	private eventRefs: EventRef[] = [];
+	/** Active event refs paired with their emitters for proper cleanup. */
+	private eventRefs: Array<{ emitter: Events; ref: EventRef }> = [];
 	/** Tracks the currently focused markdown file (null when none). */
 	private activeFile: TFile | null = null;
 	/** Indicates whether the watcher has started binding events. */
@@ -64,6 +64,7 @@ export class NoteWatcher {
 
 	protected bindWorkspaceEvents(): void {
 		this.registerEvent(
+			this.app.workspace,
 			this.app.workspace.on("active-leaf-change", (leaf) => {
 				const view = leaf?.view instanceof MarkdownView ? (leaf.view as MarkdownView) : null;
 				this.setActiveFile(view?.file ?? null);
@@ -71,6 +72,7 @@ export class NoteWatcher {
 		);
 
 		this.registerEvent(
+			this.app.metadataCache,
 			this.app.metadataCache.on("changed", (file) => {
 				if (this.isActiveFile(file)) {
 					this.recalculate(file);
@@ -79,6 +81,7 @@ export class NoteWatcher {
 		);
 
 		this.registerEvent(
+			this.app.metadataCache,
 			this.app.metadataCache.on("resolve", (file) => {
 				if (this.isActiveFile(file)) {
 					this.recalculate(file);
@@ -90,15 +93,15 @@ export class NoteWatcher {
 	/**
 	 * @param ref - Event reference returned by `this.app.workspace.on` or metadata hooks.
 	 */
-	protected registerEvent(ref: EventRef | undefined): void {
+	protected registerEvent(emitter: Events, ref: EventRef | undefined): void {
 		if (ref) {
-			this.eventRefs.push(ref);
+			this.eventRefs.push({ emitter, ref });
 		}
 	}
 
 	private unbindWorkspaceEvents(): void {
-		this.eventRefs.forEach((ref) => {
-			this.app.workspace.offref(ref);
+		this.eventRefs.forEach(({ emitter, ref }) => {
+			emitter.offref(ref);
 		});
 		this.eventRefs = [];
 	}
