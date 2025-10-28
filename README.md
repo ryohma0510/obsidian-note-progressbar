@@ -15,6 +15,7 @@ An Obsidian plugin that displays a lightweight progress banner above the current
 pnpm install         # install dependencies
 pnpm run dev         # watch & bundle to main.js
 pnpm run build       # type-check + production bundle
+pnpm run lint        # run ESLint on TypeScript sources
 pnpm test            # run Vitest (unit & scenario suites)
 ```
 

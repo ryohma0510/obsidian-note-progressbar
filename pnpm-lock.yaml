@@ -7,11 +7,10 @@ settings:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       eslint:
         specifier: ^9.38.0
         version: 9.38.0
-    devDependencies:
       '@types/jsdom':
         specifier: ^27.0.0
         version: 27.0.0
