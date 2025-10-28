@@ -6,9 +6,9 @@
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-		"lint": "eslint . --ext .ts",
-		"format": "prettier --write src/ tests/",
-		"format:check": "prettier --check src/ tests/",
+		"lint": "eslint main.ts src/ tests/ --ext .ts --no-error-on-unmatched-pattern",
+		"format": "prettier --write main.ts src/ tests/",
+		"format:check": "prettier --check main.ts src/ tests/",
 		"test": "vitest run --passWithNoTests",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
