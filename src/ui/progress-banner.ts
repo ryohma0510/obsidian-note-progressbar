@@ -21,7 +21,9 @@ export class ProgressBanner {
 		this.app = app;
 		this.root = this.createRoot();
 		const summary = this.root.querySelector(".todo-progress-banner__summary") as HTMLDivElement;
-		this.summaryText = summary.querySelector(".todo-progress-banner__summary-text") as HTMLSpanElement;
+		this.summaryText = summary.querySelector(
+			".todo-progress-banner__summary-text",
+		) as HTMLSpanElement;
 		this.percentageText = summary.querySelector(
 			".todo-progress-banner__summary-percentage",
 		) as HTMLSpanElement;
@@ -99,10 +101,8 @@ export class ProgressBanner {
 		const summary = root.createDiv({ cls: "todo-progress-banner__summary" });
 		summary
 			.createSpan({ cls: "todo-progress-banner__summary-text" })
-			.setText("Tracking tasks…");
-		summary
-			.createSpan({ cls: "todo-progress-banner__summary-percentage" })
-			.setText("0%");
+			.setText("Tracking tasks...");
+		summary.createSpan({ cls: "todo-progress-banner__summary-percentage" }).setText("0%");
 
 		const progress = root.createEl("progress", {
 			cls: "todo-progress-banner__progress",
