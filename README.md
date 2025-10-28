@@ -18,6 +18,7 @@ pnpm run build       # type-check + production bundle
 pnpm run lint        # run ESLint on TypeScript sources
 pnpm run format      # apply Prettier formatting
 pnpm test            # run Vitest (unit & scenario suites)
+# CI runs lint, format:check, and tests on every push/pull request.
 ```
 
 Development workflow:

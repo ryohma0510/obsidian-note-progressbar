@@ -99,9 +99,7 @@ export class ProgressBanner {
 		root.setAttr("aria-live", "polite");
 
 		const summary = root.createDiv({ cls: "todo-progress-banner__summary" });
-		summary
-			.createSpan({ cls: "todo-progress-banner__summary-text" })
-			.setText("Tracking tasks...");
+		summary.createSpan({ cls: "todo-progress-banner__summary-text" }).setText("Tracking tasks...");
 		summary.createSpan({ cls: "todo-progress-banner__summary-percentage" }).setText("0%");
 
 		const progress = root.createEl("progress", {
