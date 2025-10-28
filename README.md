@@ -16,6 +16,7 @@ pnpm install         # install dependencies
 pnpm run dev         # watch & bundle to main.js
 pnpm run build       # type-check + production bundle
 pnpm run lint        # run ESLint on TypeScript sources
+pnpm run format      # apply Prettier formatting
 pnpm test            # run Vitest (unit & scenario suites)
 ```
 
