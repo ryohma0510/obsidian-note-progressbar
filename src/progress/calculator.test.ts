@@ -44,10 +44,7 @@ describe("calculateProgressSnapshot", () => {
 	});
 
 	it("rounds percentage to nearest whole number and clamps to 100", () => {
-		const snapshot = calculateProgressSnapshot([
-			task("a", true),
-			task("b", true),
-		]);
+		const snapshot = calculateProgressSnapshot([task("a", true), task("b", true)]);
 
 		expect(snapshot).toMatchObject({
 			total: 2,
