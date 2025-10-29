@@ -4,7 +4,7 @@ info:
   version: 0.1.0
   description: >-
     Contract describing the user-visible command palette action and the derived
-    progress snapshot interface used by the UI banner. Although implemented
+    progress snapshot interface used by the UI bar. Although implemented
     locally within Obsidian, modeling the behavior as OpenAPI endpoints keeps
     acceptance tests and documentation precise.
 servers:
@@ -13,8 +13,8 @@ servers:
 paths:
   /commands/todo-progress/toggle:
     post:
-      summary: Toggle the todo progress banner for the active note.
-      operationId: toggleTodoProgressBanner
+      summary: Toggle the todo progress bar for the active note.
+      operationId: toggleTodoProgressBar
       requestBody:
         required: true
         content:
@@ -28,11 +28,11 @@ paths:
               required: []
       responses:
         '200':
-          description: Banner state after toggle
+          description: Bar state after toggle
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BannerState'
+                $ref: '#/components/schemas/BarState'
 
   /notes/{path}/progress:
     get:
@@ -77,7 +77,7 @@ components:
           type: integer
           description: Epoch milliseconds when snapshot was produced.
       required: [total, completed, percentage, generatedAt]
-    BannerState:
+    BarState:
       type: object
       properties:
         visible:

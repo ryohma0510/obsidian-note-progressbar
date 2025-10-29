@@ -1,11 +1,11 @@
-# Implementation Plan: Todo Progress Banner MVP
+# Implementation Plan: Todo Progress Bar MVP
 
 **Branch**: `001-todo-progress` | **Date**: 2025-10-25 | **Spec**: [`specs/001-todo-progress/spec.md`](./spec.md)
 **Input**: Feature specification from `/specs/001-todo-progress/spec.md`
 
 ## Summary
 
-Deliver an Obsidian plugin feature that renders a lightweight progress banner above every note, showing the completion percentage of Markdown checkboxes and updating live as users toggle tasks. Implementation centers on a deterministic Markdown task parser, a DOM banner component that respects existing themes, and lifecycle wiring in `main.ts` to keep the UI synchronized without manual refreshes.
+Deliver an Obsidian plugin feature that renders a lightweight progress bar above every note, showing the completion percentage of Markdown checkboxes and updating live as users toggle tasks. Implementation centers on a deterministic Markdown task parser, a DOM bar component that respects existing themes, and lifecycle wiring in `main.ts` to keep the UI synchronized without manual refreshes.
 
 ## Technical Context
 
@@ -29,9 +29,9 @@ Deliver an Obsidian plugin feature that renders a lightweight progress banner ab
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **Code Quality Gate**: `main.ts` will only register commands/events and delegate to new modules: `src/progress/calculator.ts` (Markdown checkbox parser returning `ProgressSnapshot`), `src/ui/progress-banner.ts` (DOM creation + updates), and `src/state/note-watcher.ts` (workspace/file events). Each module owns a single responsibility with TSDoc summaries.
+- **Code Quality Gate**: `main.ts` will only register commands/events and delegate to new modules: `src/progress/calculator.ts` (Markdown checkbox parser returning `ProgressSnapshot`), `src/ui/progress-bar.ts` (DOM creation + updates), and `src/state/note-watcher.ts` (workspace/file events). Each module owns a single responsibility with TSDoc summaries.
 - **Testing Gate**: Plan introduces `pnpm test` powered by a TypeScript-friendly runner (decision pending research) plus jsdom for DOM assertions. Coverage targets: calculator unit tests (nested lists, empty notes, performance caps) and scenario tests simulating checkbox toggles via mocked workspace events.
-- **UX Consistency Gate**: Only one UI surface—the “Todo progress” banner fixed below the note title—plus a command palette entry “Toggle todo progress bar.” Copy will be sentence case, default theme colors auto-inherited, and celebratory state text “All tasks done” keeps layout stable. No settings panel in MVP, so no additional copy required.
+- **UX Consistency Gate**: Only one UI surface—the “Todo progress” bar fixed below the note title—plus a command palette entry “Toggle todo progress bar.” Copy will be sentence case, default theme colors auto-inherited, and celebratory state text “All tasks done” keeps layout stable. No settings panel in MVP, so no additional copy required.
 
 ## Project Structure
 
@@ -60,7 +60,7 @@ src/
 ├── progress/
 │   └── calculator.ts
 ├── ui/
-│   └── progress-banner.ts
+│   └── progress-bar.ts
 └── state/
     └── note-watcher.ts
 
@@ -85,4 +85,4 @@ tests/
 ## Constitution Re-check (post-design)
 - **Code Quality Gate**: PASS – Modules, data model, and event bridge are fully documented; `main.ts` remains a lightweight orchestrator.
 - **Testing Gate**: PASS – Vitest + jsdom stack chosen, contracts + data model specify what to assert, and `pnpm test` will run both unit and scenario suites.
-- **UX Consistency Gate**: PASS – Single banner surface with fixed copy (“Todo progress”, “All tasks done”), celebratory state defined in spec, and no extra settings that could drift from guidelines.
+- **UX Consistency Gate**: PASS – Single bar surface with fixed copy (“Todo progress”, “All tasks done”), celebratory state defined in spec, and no extra settings that could drift from guidelines.

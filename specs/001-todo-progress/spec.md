@@ -15,7 +15,7 @@ Note authors, regardless of which page they open, want to understand how far the
 
 **Why this priority**: Surfacing completion at a glance is the core value proposition and the baseline for every other enhancement.
 
-**Independent Test**: Open a note containing 6 unchecked tasks and 4 completed ones; verify a banner appears before the first heading showing "6 of 10 tasks complete (60%)" with a proportional bar.
+**Independent Test**: Open a note containing 6 unchecked tasks and 4 completed ones; verify a bar appears before the first heading showing "6 of 10 tasks complete (60%)" with a proportional bar.
 
 **Acceptance Scenarios**:
 
@@ -49,36 +49,36 @@ Writers updating checklists need the bar to stay accurate as they tick items off
 
 ## Quality, Testing & UX Alignment *(constitution-mandated)*
 
-- **Code Quality Plan**: Introduce `src/progress/calculator.ts` for parsing Markdown tokens and returning a `ProgressSnapshot`, plus `src/ui/progress-banner.ts` for rendering the top-of-note element. `main.ts` simply wires lifecycle hooks to these modules and registers any future commands.
+- **Code Quality Plan**: Introduce `src/progress/calculator.ts` for parsing Markdown tokens and returning a `ProgressSnapshot`, plus `src/ui/progress-bar.ts` for rendering the top-of-note element. `main.ts` simply wires lifecycle hooks to these modules and registers any future commands.
 - **Automated Testing Plan**: Add logic tests for `ProgressSnapshot` generation covering nested lists, zero-task notes, and large documents; add scenario tests that simulate toggling checkboxes and note navigation to assert the bar updates. All tests run via `pnpm test` so CI gates merges per the constitution.
-- **UX Consistency Plan**: UI strings use sentence case (e.g., “Todo progress”), default styling respects the active Obsidian theme, and the bar appears directly beneath the note title with subtle animation matching Obsidian guidelines. README gains a short section describing activation and interpreting the progress banner.
+- **UX Consistency Plan**: UI strings use sentence case (e.g., “Todo progress”), default styling respects the active Obsidian theme, and the bar appears directly beneath the note title with subtle animation matching Obsidian guidelines. README gains a short section describing activation and interpreting the progress bar.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
 - **FR-001**: The plugin MUST scan the active note for standard Obsidian Markdown checkbox syntax (`- [ ]`, `- [x]`) whenever a note is opened or gains focus.
-- **FR-002**: When at least one checkbox exists, the system MUST display a progress banner above the note content showing only the completion percentage rounded to the nearest whole number by default.
-- **FR-003**: The system MUST hide the banner entirely when a note contains zero checkboxes to avoid visual noise.
-- **FR-004**: The banner MUST update within 200 ms whenever a checkbox is toggled or a note is switched, ensuring the displayed percentage remains accurate.
-- **FR-005**: The banner MUST respect Obsidian themes by default (inherit font and respect dark/light contrast) and expose accessible text describing completion (e.g., “4 of 7 tasks complete”).
+- **FR-002**: When at least one checkbox exists, the system MUST display a progress bar above the note content showing only the completion percentage rounded to the nearest whole number by default.
+- **FR-003**: The system MUST hide the bar entirely when a note contains zero checkboxes to avoid visual noise.
+- **FR-004**: The bar MUST update within 200 ms whenever a checkbox is toggled or a note is switched, ensuring the displayed percentage remains accurate.
+- **FR-005**: The bar MUST respect Obsidian themes by default (inherit font and respect dark/light contrast) and expose accessible text describing completion (e.g., “4 of 7 tasks complete”).
 
 ### Key Entities *(include if feature involves data)*
 
-- **ProgressSnapshot**: Derived data structure containing total tasks, completed tasks, percentage, and a timestamp for when it was calculated; used to render the banner and to debounce updates.
+- **ProgressSnapshot**: Derived data structure containing total tasks, completed tasks, percentage, and a timestamp for when it was calculated; used to render the bar and to debounce updates.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: For notes with at least one checkbox, the progress banner appears with accurate counts within 500 ms of opening the file on desktop and mobile.
+- **SC-001**: For notes with at least one checkbox, the progress bar appears with accurate counts within 500 ms of opening the file on desktop and mobile.
 - **SC-002**: Toggling a checkbox updates the displayed percentage within 200 ms in 95% of interactions measured over 20 consecutive toggles.
-- **SC-003**: In user testing, 90% of participants report that the banner made it easier to judge note completion without scrolling, improving perceived productivity.
+- **SC-003**: In user testing, 90% of participants report that the bar made it easier to judge note completion without scrolling, improving perceived productivity.
 - **SC-004**: During QA sampling of 50 note openings and 50 checkbox toggles, 0 instances show a mismatch larger than one task between displayed counts and actual note content.
 
 ## Assumptions
 
 - Only standard Markdown checkboxes should influence the progress percentage; other symbols or Kanban-specific syntax are out of scope for the initial release.
-- The banner will appear directly under the note title by default and will not be draggable; alternative placements (e.g., sidebar) may be considered later.
+- The bar will appear directly under the note title by default and will not be draggable; alternative placements (e.g., sidebar) may be considered later.
 - Performance targets assume notes smaller than 1 MB; extremely large files will be optimized separately if needed.
 - MVP intentionally ships without color, size, or position customization so development can focus on correctness and performance first.

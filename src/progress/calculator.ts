@@ -3,7 +3,7 @@ import type { NoteTask, ProgressSnapshot } from "../types/progress";
 
 /**
  * Derives a {@link ProgressSnapshot} from the supplied tasks.
- * Returns `null` when no checkbox tasks exist so the banner can hide.
+ * Returns `null` when no checkbox tasks exist so the bar can hide.
  *
  * @param tasks - Flat list of checkbox entries detected within a note.
  * @param timestamp - Epoch milliseconds indicating when the snapshot was generated.

@@ -1,4 +1,4 @@
-# Data Model – Todo Progress Banner MVP
+# Data Model – Todo Progress Bar MVP
 
 ## Entities
 
@@ -19,11 +19,11 @@
   - `completed`: number – count of tasks where `checked = true`.
   - `percentage`: number – `Math.round((completed / total) * 100)`; undefined when `total = 0`.
 - **Validation Rules**:
-  - Snapshot is only emitted when `total > 0`; otherwise the banner hides.
+  - Snapshot is only emitted when `total > 0`; otherwise the bar hides.
   - `percentage` is clamped between 0 and 100.
   - Recompute only when either totals change or active file changes to reduce DOM churn.
 
-### BannerState
+### BarState
 - **Fields**:
   - `visible`: boolean – true when `total > 0` and command toggle not disabled.
   - `text`: string – e.g., `"60%"`.
@@ -36,7 +36,7 @@
 
 ## Relationships
 - `ProgressSnapshot` aggregates many `NoteTask` items from the currently focused file.
-- `BannerState` is derived directly from `ProgressSnapshot` plus the ephemeral toggle status.
+- `BarState` is derived directly from `ProgressSnapshot` plus the ephemeral toggle status.
 
 ```mermaid
 graph TD
@@ -44,7 +44,7 @@ graph TD
         NT[NoteTask]
     end
     NT -->|aggregates| PS[ProgressSnapshot]
-    PS -->|derives| BS[BannerState]
+    PS -->|derives| BS[BarState]
     Toggle[Command Toggle] --> BS
 ```
 

@@ -3,7 +3,7 @@
 description: "Task list template for feature implementation"
 ---
 
-# Tasks: Todo Progress Banner MVP
+# Tasks: Todo Progress Bar MVP
 
 **Input**: Design documents from `/specs/001-todo-progress/`
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
@@ -40,9 +40,9 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Shared types, state scaffolding, and styling hooks required before implementing any user story logic.
 
-- [X] T004 Define shared interfaces `NoteTask`, `ProgressSnapshot`, and `BannerState` in `src/types/progress.ts` according to `data-model.md`.
+- [X] T004 Define shared interfaces `NoteTask`, `ProgressSnapshot`, and `BarState` in `src/types/progress.ts` according to `data-model.md`.
 - [X] T005 Scaffold `src/state/note-watcher.ts` with a `NoteWatcher` class that accepts the Obsidian `App`, exposes `start()`/`stop()`, and emits snapshot callbacks (implementation TBD in user stories).
-- [X] T006 Add a `.todo-progress-banner` style block to `styles.css` (or create it if missing) that inherits typography/colors from Obsidian CSS variables while reserving space for the banner.
+- [X] T006 Add a `.todo-progress-bar` style block to `styles.css` (or create it if missing) that inherits typography/colors from Obsidian CSS variables while reserving space for the bar.
 
 **Checkpoint**: Shared types, watcher skeleton, and styling exist—user stories can now plug in behavior independently.
 
@@ -50,9 +50,9 @@ description: "Task list template for feature implementation"
 
 ## Phase 3: User Story 1 - See note completion status (Priority: P1) 🎯 MVP
 
-**Goal**: Display a banner above the note title showing the completion percentage whenever the active note contains Markdown checkboxes.
+**Goal**: Display a bar above the note title showing the completion percentage whenever the active note contains Markdown checkboxes.
 
-**Independent Test**: Open a note with 10 tasks (4 complete) and confirm the banner renders “40%” with the correct fill ratio; open a note with zero checkboxes and confirm no banner is injected.
+**Independent Test**: Open a note with 10 tasks (4 complete) and confirm the bar renders “40%” with the correct fill ratio; open a note with zero checkboxes and confirm no bar is injected.
 
 ### Tests for User Story 1 ⚠️ (mandatory)
 
@@ -60,21 +60,21 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 1
 
-- [X] T008 [US1] Implement checkbox parsing in `src/progress/calculator.ts` to convert metadata cache list items into `ProgressSnapshot` objects (hide banner when `total = 0`).
-- [X] T009 [US1] Build the DOM renderer in `src/ui/progress-banner.ts` that inserts the banner beneath the note title, sets text to the rounded percentage, and exposes `show(snapshot)` / `hide()` methods.
-- [X] T010 [US1] Extend `src/state/note-watcher.ts` to recalculate on `workspace.on('active-leaf-change')` and deliver snapshots to the banner renderer.
-- [X] T011 [US1] Update `main.ts` to instantiate the calculator, banner, and watcher, register the “Toggle todo progress bar” command, and dispose everything in `onunload`.
-- [X] T012 [US1] Document activation instructions and the banner UX in `README.md` (usage section) so users know what to expect for MVP.
+- [X] T008 [US1] Implement checkbox parsing in `src/progress/calculator.ts` to convert metadata cache list items into `ProgressSnapshot` objects (hide bar when `total = 0`).
+- [X] T009 [US1] Build the DOM renderer in `src/ui/progress-bar.ts` that inserts the bar beneath the note title, sets text to the rounded percentage, and exposes `show(snapshot)` / `hide()` methods.
+- [X] T010 [US1] Extend `src/state/note-watcher.ts` to recalculate on `workspace.on('active-leaf-change')` and deliver snapshots to the bar renderer.
+- [X] T011 [US1] Update `main.ts` to instantiate the calculator, bar, and watcher, register the “Toggle todo progress bar” command, and dispose everything in `onunload`.
+- [X] T012 [US1] Document activation instructions and the bar UX in `README.md` (usage section) so users know what to expect for MVP.
 
-**Checkpoint**: User Story 1 delivers an independently testable banner that appears on note open and hides when no tasks exist.
+**Checkpoint**: User Story 1 delivers an independently testable bar that appears on note open and hides when no tasks exist.
 
 ---
 
 ## Phase 4: User Story 2 - Watch progress update live (Priority: P2)
 
-**Goal**: Keep the banner accurate as users toggle checkboxes or switch notes during a session.
+**Goal**: Keep the bar accurate as users toggle checkboxes or switch notes during a session.
 
-**Independent Test**: While a note is open, toggle tasks and confirm the banner percentage and fill ratio update within 200 ms; switch to a different file and verify the new note’s percentage replaces the old one.
+**Independent Test**: While a note is open, toggle tasks and confirm the bar percentage and fill ratio update within 200 ms; switch to a different file and verify the new note’s percentage replaces the old one.
 
 ### Tests for User Story 2 ⚠️ (mandatory)
 
@@ -83,11 +83,11 @@ description: "Task list template for feature implementation"
 ### Implementation for User Story 2
 
 - [ ] T014 [US2] Enhance `src/state/note-watcher.ts` to listen for `metadataCache.on('changed')` (or vault modify) events and emit fresh snapshots when checkboxes toggle.
-- [ ] T015 [US2] Update `src/ui/progress-banner.ts` to animate fill changes, show the celebratory “All tasks done” state, and ensure layout remains stable.
-- [ ] T016 [US2] Wire the new watcher events and celebratory UX in `main.ts`, ensuring the command toggle still hides/shows the banner without stale listeners.
+- [ ] T015 [US2] Update `src/ui/progress-bar.ts` to animate fill changes, show the celebratory “All tasks done” state, and ensure layout remains stable.
+- [ ] T016 [US2] Wire the new watcher events and celebratory UX in `main.ts`, ensuring the command toggle still hides/shows the bar without stale listeners.
 - [ ] T017 [US2] Expand `quickstart.md` with live-update verification steps so testers can follow the scenario described in the spec.
 
-**Checkpoint**: User Story 2 ensures the banner stays in sync with live task edits and note navigation without manual refreshes.
+**Checkpoint**: User Story 2 ensures the bar stays in sync with live task edits and note navigation without manual refreshes.
 
 ---
 
@@ -96,16 +96,16 @@ description: "Task list template for feature implementation"
 **Purpose**: Final hardening tasks spanning multiple user stories.
 
 - [ ] T018 [P] Add performance logging/timing hooks in `src/state/note-watcher.ts` (guarded by `process.env.NODE_ENV`) to confirm parsing stays under 500 ms for large notes.
-- [ ] T019 Audit accessibility by ensuring `src/ui/progress-banner.ts` sets `aria-live="polite"` and descriptive text for screen readers, updating `styles.css` if needed for contrast.
-- [ ] T020 Refresh `README.md` and `docs` (if any) with troubleshooting tips (e.g., what happens when metadata cache is disabled) and include a GIF screenshot of the banner.
+- [ ] T019 Audit accessibility by ensuring `src/ui/progress-bar.ts` sets `aria-live="polite"` and descriptive text for screen readers, updating `styles.css` if needed for contrast.
+- [ ] T020 Refresh `README.md` and `docs` (if any) with troubleshooting tips (e.g., what happens when metadata cache is disabled) and include a GIF screenshot of the bar.
 
 ---
 
 ## Dependencies & Execution Order
 
 ### User Story Ordering
-- **US1 (P1)** must ship first; it provides the baseline banner experience.
-- **US2 (P2)** depends on US1 components (calculator, banner, watcher) and only adds live-update behavior.
+- **US1 (P1)** must ship first; it provides the baseline bar experience.
+- **US2 (P2)** depends on US1 components (calculator, bar, watcher) and only adds live-update behavior.
 
 ### Phase Dependencies
 1. Setup → Foundational → User Stories → Polish.
@@ -116,7 +116,7 @@ description: "Task list template for feature implementation"
 
 - While T001–T002 run (package + config edits), another contributor can create the testing guide (T003).
 - During US1, calculator tests (T007) can run in parallel with DOM renderer implementation (T009) because they touch different files.
-- For US2, the scenario tests (T013) can be built concurrently with banner animation updates (T015) once watcher hooks from T014 are stubbed.
+- For US2, the scenario tests (T013) can be built concurrently with bar animation updates (T015) once watcher hooks from T014 are stubbed.
 
 ## Implementation Strategy
 

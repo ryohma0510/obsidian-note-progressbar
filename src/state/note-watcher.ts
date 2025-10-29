@@ -49,7 +49,7 @@ export class NoteWatcher {
 	}
 
 	/**
-	 * Helper for implementations to emit the latest snapshot (or `null` to hide the banner).
+	 * Helper for implementations to emit the latest snapshot (or `null` to hide the bar).
 	 */
 	/**
 	 * @param snapshot - Latest derived snapshot for the active file or `null` when hidden.
@@ -115,7 +115,7 @@ export class NoteWatcher {
 	}
 
 	/**
-	 * @param file - File whose metadata should be parsed into a snapshot. `null` hides the banner.
+	 * @param file - File whose metadata should be parsed into a snapshot. `null` hides the bar.
 	 */
 	private recalculate(file: TFile | null): void {
 		if (!file) {
