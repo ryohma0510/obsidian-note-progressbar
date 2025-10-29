@@ -1,6 +1,6 @@
 {
 	"id": "note-progressbar",
-	"name": "Note Progress",
+	"name": "Note Progressbar",
 	"version": "1.0.0",
 	"minAppVersion": "1.5.0",
 	"description": "Displays a live progress banner summarizing checkbox completion in the active note.",

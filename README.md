@@ -1,4 +1,4 @@
-# Note Progress
+# Note Progressbar
 
 An Obsidian plugin that displays a lightweight progress banner above the current note, showing how many Markdown checkboxes are complete and updating live as you toggle tasks.
 
