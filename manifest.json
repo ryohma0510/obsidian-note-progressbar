@@ -1,6 +1,6 @@
 {
 	"id": "note-progress",
-	"name": "Todo Progress Banner",
+	"name": "Note Progress",
 	"version": "1.0.0",
 	"minAppVersion": "1.5.0",
 	"description": "Displays a live progress banner summarizing checkbox completion in the active note.",
