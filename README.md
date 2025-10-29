@@ -23,7 +23,7 @@ pnpm test            # run Vitest (unit & scenario suites)
 
 Development workflow:
 1. `pnpm run dev` keeps `main.js` up to date in the repo root.
-2. Symlink or copy the repo to `<Vault>/.obsidian/plugins/note-progress/`.
+2. Symlink or copy the repo to `<Vault>/.obsidian/plugins/note-progressbar/`.
 3. Reload Obsidian and enable the plugin under **Settings → Community plugins**.
 
 ## Usage
