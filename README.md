@@ -1,5 +1,9 @@
 # Note Progressbar
 
+<p align="center">
+  <img src="logo.png" alt="Note Progressbar logo" width="320">
+</p>
+
 An Obsidian plugin that displays a lightweight progress bar above the current note, showing how many Markdown checkboxes are complete and updating live as you toggle tasks.
 
 ## Features
