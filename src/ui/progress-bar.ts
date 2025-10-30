@@ -21,9 +21,7 @@ export class ProgressBar {
 		this.app = app;
 		this.root = this.createRoot();
 		const summary = this.root.querySelector(".todo-progress-bar__summary") as HTMLDivElement;
-		this.summaryText = summary.querySelector(
-			".todo-progress-bar__summary-text",
-		) as HTMLSpanElement;
+		this.summaryText = summary.querySelector(".todo-progress-bar__summary-text") as HTMLSpanElement;
 		this.percentageText = summary.querySelector(
 			".todo-progress-bar__summary-percentage",
 		) as HTMLSpanElement;
