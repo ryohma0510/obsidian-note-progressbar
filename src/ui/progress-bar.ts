@@ -2,10 +2,10 @@ import { MarkdownView } from "obsidian";
 import type { App } from "obsidian";
 import type { ProgressSnapshot } from "../types/progress";
 
-export class ProgressBanner {
+export class ProgressBar {
 	/** App instance for locating active views and DOM containers. */
 	private readonly app: App;
-	/** Root wrapper representing the entire banner DOM subtree. */
+	/** Root wrapper representing the entire progress bar DOM subtree. */
 	private readonly root: HTMLDivElement;
 	/** Span element rendering "X of Y tasks complete". */
 	private readonly summaryText: HTMLSpanElement;
@@ -20,20 +20,18 @@ export class ProgressBanner {
 	constructor(app: App) {
 		this.app = app;
 		this.root = this.createRoot();
-		const summary = this.root.querySelector(".todo-progress-banner__summary") as HTMLDivElement;
-		this.summaryText = summary.querySelector(
-			".todo-progress-banner__summary-text",
-		) as HTMLSpanElement;
+		const summary = this.root.querySelector(".todo-progress-bar__summary") as HTMLDivElement;
+		this.summaryText = summary.querySelector(".todo-progress-bar__summary-text") as HTMLSpanElement;
 		this.percentageText = summary.querySelector(
-			".todo-progress-banner__summary-percentage",
+			".todo-progress-bar__summary-percentage",
 		) as HTMLSpanElement;
 		this.progressEl = this.root.querySelector(
-			".todo-progress-banner__progress",
+			".todo-progress-bar__progress",
 		) as HTMLProgressElement;
 	}
 
 	/**
-	 * @param snapshot - Latest progress data to render inside the banner.
+	 * @param snapshot - Latest progress data to render inside the bar.
 	 */
 	show(snapshot: ProgressSnapshot): void {
 		if (!this.ensureMounted()) return;
@@ -56,7 +54,7 @@ export class ProgressBanner {
 	}
 
 	/**
-	 * @returns `true` if the banner is mounted under the active view; `false` otherwise.
+	 * @returns `true` if the bar is mounted under the active view; `false` otherwise.
 	 */
 	private ensureMounted(): boolean {
 		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
@@ -79,31 +77,31 @@ export class ProgressBanner {
 	}
 
 	/**
-	 * @returns A detached DOM tree representing the banner; callers must mount it.
+	 * @returns A detached DOM tree representing the bar; callers must mount it.
 	 *
 	 * Example structure:
 	 * ```html
-	 * <div class="todo-progress-banner" role="status" aria-live="polite">
-	 *   <div class="todo-progress-banner__summary">
-	 *     <span class="todo-progress-banner__summary-text">2 of 5 tasks complete</span>
-	 *     <span class="todo-progress-banner__summary-percentage">40%</span>
+	 * <div class="todo-progress-bar" role="status" aria-live="polite">
+	 *   <div class="todo-progress-bar__summary">
+	 *     <span class="todo-progress-bar__summary-text">2 of 5 tasks complete</span>
+	 *     <span class="todo-progress-bar__summary-percentage">40%</span>
 	 *   </div>
-	 *   <progress class="todo-progress-banner__progress" value="40" max="100"></progress>
+	 *   <progress class="todo-progress-bar__progress" value="40" max="100"></progress>
 	 * </div>
 	 * ```
 	 */
 	private createRoot(): HTMLDivElement {
 		const root = document.createElement("div");
-		root.className = "todo-progress-banner";
+		root.className = "todo-progress-bar";
 		root.setAttr("role", "status");
 		root.setAttr("aria-live", "polite");
 
-		const summary = root.createDiv({ cls: "todo-progress-banner__summary" });
-		summary.createSpan({ cls: "todo-progress-banner__summary-text" }).setText("Tracking tasks...");
-		summary.createSpan({ cls: "todo-progress-banner__summary-percentage" }).setText("0%");
+		const summary = root.createDiv({ cls: "todo-progress-bar__summary" });
+		summary.createSpan({ cls: "todo-progress-bar__summary-text" }).setText("Tracking tasks...");
+		summary.createSpan({ cls: "todo-progress-bar__summary-percentage" }).setText("0%");
 
 		const progress = root.createEl("progress", {
-			cls: "todo-progress-banner__progress",
+			cls: "todo-progress-bar__progress",
 		}) as HTMLProgressElement;
 		progress.max = 100;
 		progress.value = 0;

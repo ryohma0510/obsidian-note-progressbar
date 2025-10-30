@@ -31,9 +31,9 @@ export interface ProgressSnapshot {
 
 /**
  * Callback signature used by the state layer to notify observers (e.g., UI) of
- * a new snapshot or `null` when the banner should hide.
+ * a new snapshot or `null` when the bar should hide.
  *
  * @param snapshot - Latest {@link ProgressSnapshot} for the active file, or `null`
- * when there are no tasks and the banner should be hidden.
+ * when there are no tasks and the bar should be hidden.
  */
 export type SnapshotCallback = (snapshot: ProgressSnapshot | null) => void;

@@ -7,7 +7,7 @@ If your plugin does not need CSS, delete this file.
 
 */
 
-.todo-progress-banner {
+.todo-progress-bar {
 	margin: 0 0 var(--size-4-4);
 	padding: var(--size-2-2) var(--size-4-4);
 	border-radius: var(--radius-m);
@@ -21,14 +21,14 @@ If your plugin does not need CSS, delete this file.
 	line-height: 1.4;
 }
 
-.todo-progress-banner__summary {
+.todo-progress-bar__summary {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	font-weight: var(--font-bold);
 }
 
-.todo-progress-banner__progress {
+.todo-progress-bar__progress {
 	appearance: none;
 	width: 100%;
 	height: 8px;

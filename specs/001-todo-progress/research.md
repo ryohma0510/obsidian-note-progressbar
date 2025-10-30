@@ -1,4 +1,4 @@
-# Research – Todo Progress Banner MVP
+# Research – Todo Progress Bar MVP
 
 ## Tasks Dispatched
 - Research testing stack options for validating progress calculations and DOM updates in an Obsidian plugin context.
@@ -32,7 +32,7 @@
   - Direct coupling between `main.ts` and calculator: harder to test and violates the constitution’s code-quality gate.
   - Global event bus: overkill for MVP.
 
-### Decision: DOM banner rendered with theme-aware classes only
+### Decision: DOM bar rendered with theme-aware classes only
 - **Rationale**: By using Obsidian’s existing CSS variables (e.g., `--text-muted`, `--interactive-accent`) and avoiding inline colors, we maintain compatibility across themes without offering user customization yet.
 - **Alternatives considered**:
   - Injecting custom stylesheets: increases maintenance burden and can conflict with user themes.
