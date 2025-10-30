@@ -6,6 +6,8 @@
 
 An Obsidian plugin that displays a lightweight progress bar above the current note, showing how many Markdown checkboxes are complete and updating live as you toggle tasks.
 
+<img src="sample.png" alt="Note Progressbar sample screenshot" width="720">
+
 ## Features
 
 - Scans the active note for standard `- [ ]` / `- [x]` tasks using Obsidian’s metadata cache.
