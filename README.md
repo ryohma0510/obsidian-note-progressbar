@@ -9,40 +9,13 @@ An Obsidian plugin that displays a lightweight progress bar above the current no
 - Updates automatically when you check/uncheck tasks or switch notes.
 - Command palette action **Toggle todo progress bar** to quickly show/hide the bar per vault.
 
-## Developing
-
-```bash
-pnpm install         # install dependencies
-pnpm run dev         # watch & bundle to main.js
-pnpm run build       # type-check + production bundle
-pnpm run lint        # run ESLint on TypeScript sources
-pnpm run format      # apply Prettier formatting
-pnpm test            # run Vitest (unit & scenario suites)
-# CI runs lint, format:check, and tests on every push/pull request.
-```
-
-Development workflow:
-1. `pnpm run dev` keeps `main.js` up to date in the repo root.
-2. Symlink or copy the repo to `<Vault>/.obsidian/plugins/note-progressbar/`.
-3. Reload Obsidian and enable the plugin under **Settings → Community plugins**.
-
 ## Usage
 
-1. Open any note that contains Markdown checkboxes.  
-   The bar appears above the note body showing `completed of total tasks complete (xx%)`.
-2. Toggle checkboxes while the note is open.  
-   The counts, percentage text, and fill bar update in under 200 ms.
+1. Open any note that contains Markdown checkboxes.The bar appears above the note body showing `completed of total tasks complete (xx%)`.
+2. Toggle checkboxes while the note is open.The counts, percentage text, and fill bar update in under 200 ms.
 3. Run the `Toggle todo progress bar` command (or set a hotkey) to hide/show the bar without disabling the plugin.
 4. Notes without tasks keep the layout untouched—the bar hides automatically until tasks exist.
 
-## Release checklist
+## Development
 
-1. Update `manifest.json` + `versions.json` with the new version.
-2. `pnpm run build` to produce the final `main.js`.
-3. Upload `manifest.json`, `main.js`, and `styles.css` as assets on the GitHub release matching the version string (no leading `v`).
-
-## Troubleshooting
-
-- **Bar missing?** Ensure the active pane is a Markdown note and contains at least one checkbox task Obsidian can parse.
-- **Stuck counts?** Run the toggle command twice to reset, or switch away and back to the note to trigger a recalculation.
-- **Styling issues?** The bar inherits theme variables (`--text-normal`, `--interactive-accent`). Verify your theme exposes those tokens.
+Refer to `DEVELOPERS.md` for setup instructions, coding guidelines, testing tips, and release steps.
