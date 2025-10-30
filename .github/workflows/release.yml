@@ -1,0 +1,32 @@
+name: "Release"
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@f43a0e5bad12a58b29b4d0b2c312d8d9522841c8 # v3.6.0
+      - uses: actions/setup-node@8c91899e586f06dfc61b3dcee0f2b42f19f9d7ab # v3.8.1
+        with:
+          node-version: '18'
+
+      - run: pnpm install
+      - run: pnpm run build
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@de2e72c6200a576b3e71e1debc99a9e99dbba2b # v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: true
+          files: |
+            main.js
+            styles.css
+            manifest.json
