@@ -11,7 +11,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      # TODO use v5
+      # https://github.com/actions/checkout/releases/tag/v5.0.0
       - uses: actions/checkout@f43a0e5bad12a58b29b4d0b2c312d8d9522841c8 # v3.6.0
+      # TODO use v6
+      # https://github.com/actions/setup-node/releases/tag/v6.0.0
       - uses: actions/setup-node@8c91899e586f06dfc61b3dcee0f2b42f19f9d7ab # v3.8.1
         with:
           node-version: '23'
@@ -21,6 +25,8 @@ jobs:
 
       - name: Create Release
         id: create_release
+        # TODO use v2.4.1
+        # https://github.com/softprops/action-gh-release/releases/tag/v2.4.1
         uses: softprops/action-gh-release@de2e72c6200a576b3e71e1debc99a9e99dbba2b # v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
