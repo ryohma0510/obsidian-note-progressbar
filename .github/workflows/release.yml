@@ -11,10 +11,17 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@f43a0e5bad12a58b29b4d0b2c312d8d9522841c8 # v3.6.0
-      - uses: actions/setup-node@8c91899e586f06dfc61b3dcee0f2b42f19f9d7ab # v3.8.1
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a0c4f7f57d # v4.1.1
+
+      - name: Setup pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9 --activate
+
+      - uses: actions/setup-node@60edb5dd5e06b7d1d7753680f897a6b1e9d60ebf # v4.0.2
         with:
-          node-version: '23'
+          node-version: 23
+          cache: pnpm
 
       - run: pnpm install
       - run: pnpm run build
