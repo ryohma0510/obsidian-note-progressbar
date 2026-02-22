@@ -1,5 +1,5 @@
-import { MarkdownView } from "obsidian";
-import type { App, EventRef, Events, TFile } from "obsidian";
+import { Component, MarkdownView } from "obsidian";
+import type { App, TFile } from "obsidian";
 import { snapshotFromCache } from "../progress/calculator";
 import type { ProgressSnapshot, SnapshotCallback } from "../types/progress";
 
@@ -16,36 +16,33 @@ import type { ProgressSnapshot, SnapshotCallback } from "../types/progress";
  * @param app - Obsidian application instance used to access workspace + metadata APIs.
  * @param onSnapshot - Callback fired whenever a new snapshot (or `null`) is available.
  */
-export class NoteWatcher {
+export class NoteWatcher extends Component {
 	private readonly app: App;
 	private readonly onSnapshot: SnapshotCallback;
-	/** Active event refs paired with their emitters for proper cleanup. */
-	private eventRefs: Array<{ emitter: Events; ref: EventRef }> = [];
 	/** Tracks the currently focused markdown file (null when none). */
 	private activeFile: TFile | null = null;
-	/** Indicates whether the watcher has started binding events. */
-	private active = false;
 
 	/**
 	 * @param app - Obsidian application instance used to access workspace + metadata APIs.
 	 * @param onSnapshot - Callback fired whenever a new snapshot (or `null`) is available.
 	 */
 	constructor(app: App, onSnapshot: SnapshotCallback) {
+		super();
 		this.app = app;
 		this.onSnapshot = onSnapshot;
 	}
 
-	start(): void {
-		if (this.active) return;
-		this.active = true;
+	onload(): void {
 		this.bindWorkspaceEvents();
 		this.setActiveFile(this.getActiveMarkdownFile());
 	}
 
+	start(): void {
+		this.load();
+	}
+
 	stop(): void {
-		if (!this.active) return;
-		this.active = false;
-		this.unbindWorkspaceEvents();
+		this.unload();
 	}
 
 	/**
@@ -64,7 +61,6 @@ export class NoteWatcher {
 
 	protected bindWorkspaceEvents(): void {
 		this.registerEvent(
-			this.app.workspace,
 			this.app.workspace.on("active-leaf-change", (leaf) => {
 				const view = leaf?.view instanceof MarkdownView ? (leaf.view as MarkdownView) : null;
 				this.setActiveFile(view?.file ?? null);
@@ -72,34 +68,16 @@ export class NoteWatcher {
 		);
 
 		this.registerEvent(
-			this.app.metadataCache,
 			this.app.metadataCache.on("changed", (file) => {
 				this.handleMetadataUpdate(file);
 			}),
 		);
 
 		this.registerEvent(
-			this.app.metadataCache,
 			this.app.metadataCache.on("resolve", (file) => {
 				this.handleMetadataUpdate(file);
 			}),
 		);
-	}
-
-	/**
-	 * @param ref - Event reference returned by `this.app.workspace.on` or metadata hooks.
-	 */
-	protected registerEvent(emitter: Events, ref: EventRef | undefined): void {
-		if (ref) {
-			this.eventRefs.push({ emitter, ref });
-		}
-	}
-
-	private unbindWorkspaceEvents(): void {
-		this.eventRefs.forEach(({ emitter, ref }) => {
-			emitter.offref(ref);
-		});
-		this.eventRefs = [];
 	}
 
 	/**

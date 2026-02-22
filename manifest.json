@@ -1,11 +1,10 @@
 {
 	"id": "note-progressbar",
 	"name": "Note Progressbar",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "1.5.0",
 	"description": "Displays a live progress bar summarizing checkbox completion in the active note.",
 	"author": "Ryoma Kawahara",
-	"authorUrl": "",
-	"fundingUrl": "",
+	"authorUrl": "https://github.com/ryohma0510",
 	"isDesktopOnly": false
 }
