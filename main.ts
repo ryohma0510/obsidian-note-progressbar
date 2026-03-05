@@ -4,7 +4,7 @@ import { ProgressController } from "./src/state/progress-controller";
 export default class TodoProgressPlugin extends Plugin {
 	private controller: ProgressController | null = null;
 
-	async onload(): Promise<void> {
+	onload(): void {
 		this.controller = new ProgressController(this.app);
 		this.controller.start();
 

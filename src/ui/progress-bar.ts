@@ -64,7 +64,7 @@ export class ProgressBar {
 		}
 
 		const container =
-			(view.containerEl.querySelector(".inline-title") as HTMLElement | null) ?? view.contentEl;
+			view.containerEl.querySelector(".inline-title") ?? view.contentEl;
 
 		if (!container) return false;
 
@@ -102,7 +102,7 @@ export class ProgressBar {
 
 		const progress = root.createEl("progress", {
 			cls: "todo-progress-bar__progress",
-		}) as HTMLProgressElement;
+		});
 		progress.max = 100;
 		progress.value = 0;
 
