@@ -63,8 +63,7 @@ export class ProgressBar {
 			return false;
 		}
 
-		const container =
-			view.containerEl.querySelector(".inline-title") ?? view.contentEl;
+		const container = view.containerEl.querySelector(".inline-title") ?? view.contentEl;
 
 		if (!container) return false;
 
