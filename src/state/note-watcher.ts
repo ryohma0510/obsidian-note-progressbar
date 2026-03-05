@@ -62,7 +62,7 @@ export class NoteWatcher extends Component {
 	protected bindWorkspaceEvents(): void {
 		this.registerEvent(
 			this.app.workspace.on("active-leaf-change", (leaf) => {
-				const view = leaf?.view instanceof MarkdownView ? (leaf.view as MarkdownView) : null;
+				const view = leaf?.view instanceof MarkdownView ? leaf.view : null;
 				this.setActiveFile(view?.file ?? null);
 			}),
 		);
